@@ -5,6 +5,10 @@ import cors from "cors"
 
 const authRouter = require("./routes/auth");
 const productsRouter = require("./routes/product");
+const userRouter = require('./routes/user');
+const cartRouter = require('./routes/cart');
+const orderRouter = require('./routes/order');
+const checkoutRouter = require('./routes/checkout');
 
 const app = express();
 
@@ -21,9 +25,12 @@ mongoose
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/auth", authRouter)
-app.use("/api/products", productsRouter)
-
+app.use("/api/auth", authRouter);
+app.use("/api/users", userRouter);
+app.use("/api/products", productsRouter);
+app.use("/api/carts", cartRouter);
+app.use("/api/orders", orderRouter);
+app.use("/api/checkout", checkoutRouter);
 
 
 app.listen(process.env.PORT || 5000, () => {
