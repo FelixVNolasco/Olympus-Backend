@@ -3,6 +3,7 @@ import mongoose from "mongoose"
 import dotenv from "dotenv";
 import cors from "cors"
 
+const path = require('path');
 const authRouter = require("./routes/auth");
 const productsRouter = require("./routes/product");
 const userRouter = require('./routes/user');
@@ -32,7 +33,9 @@ app.use("/api/carts", cartRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/checkout", checkoutRouter);
 
-app.get('/favicon.ico', (req, res) => res.send("Hello World"));
+app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public/index.html'));
+  });
 
 app.listen(process.env.PORT || 5000, () => {
     console.log('Backend Server is running!');
