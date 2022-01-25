@@ -29,6 +29,7 @@ app.use("/api/products", productsRouter);
 app.use("/api/carts", cartRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/checkout", checkoutRouter);
+app.get('/favicon.ico', (req, res) => res.status(204));
 app.listen(process.env.PORT || 5000, () => {
     console.log('Backend Server is running!');
 });
