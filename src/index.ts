@@ -33,7 +33,7 @@ app.use("/api/carts", cartRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/checkout", checkoutRouter);
 
-app.get('*', (req, res) => {
+app.get('/favicon.ico', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'public/index.html'));
   });
 
