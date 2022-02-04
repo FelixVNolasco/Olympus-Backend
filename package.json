@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./dist/src/index.js",
+    "start": "node index.js",
     "dev": "ts-node-dev --respawn ./src/index.ts",
     "devNodemon": "nodemon",
-    "build": "tsc",
     "lint": "eslint --ignore-path .gitignore . --ext .ts",
     "lint:fix": "npm run lint -- --fix",
     "test": "jest --verbose"

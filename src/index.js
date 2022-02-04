@@ -1,7 +1,7 @@
-import express from "express"
-import mongoose from "mongoose"
-import dotenv from "dotenv";
-import cors from "cors"
+const express = require("express");
+const mongoose = require("mongoose");
+const dotenv = require("dotenv");
+const cors = require("cors");
 
 const path = require('path');
 const authRouter = require("./routes/auth");
@@ -16,7 +16,7 @@ const app = express();
 dotenv.config();
 
 mongoose
-    .connect((process.env.MONGO_URI as string))
+    .connect(process.env.MONGO_URI)
     .then(() => console.log("DB Connection Successfull!"))
     .catch((err) => {
         console.log(err);
@@ -33,9 +33,9 @@ app.use("/api/carts", cartRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/checkout", checkoutRouter);
 
-app.get('/favicon.ico', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'public/index.html'));
-  });
+// app.get('/favicon.ico', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, 'public/index.html'));
+//   });
 
 app.listen(process.env.PORT || 5000, () => {
     console.log('Backend Server is running!');

@@ -1,10 +1,11 @@
-import jwt from "jsonwebtoken"
 
-export const verifyToken = (req: any, res: any, next: any) => {
+const jwt = require("jsonwebtoken");
+
+const verifyToken = (req, res, next) => {
     const authHeader = req.headers.token;
     if (authHeader) {
         const token = authHeader.split(" ")[1];
-        jwt.verify(token, (process.env.SEC_PASSJWT as string), (err: any, user: any) => {
+        jwt.verify(token, process.env.SEC_PASSJWT, (err, user) => {
             if (err) res.status(403).json("Token is not valid!");
             req.user = user;
             next();
@@ -14,7 +15,7 @@ export const verifyToken = (req: any, res: any, next: any) => {
     }
 };
 
-export const verifyTokenAndAuthorization = (req: any, res: any, next: any) => {
+const verifyTokenAndAuthorization = (req, res, next) => {
     verifyToken(req, res, () => {
         if (req.user.id === req.params.id || req.user.isAdmin) {
             next();
@@ -24,7 +25,7 @@ export const verifyTokenAndAuthorization = (req: any, res: any, next: any) => {
     });
 };
 
-export const verifyTokenAndAdmin = (req: any, res: any, next: any) => {
+const verifyTokenAndAdmin = (req, res, next) => {
     verifyToken(req, res, () => {
         if (req.user.isAdmin) {
             next();
@@ -33,3 +34,9 @@ export const verifyTokenAndAdmin = (req: any, res: any, next: any) => {
         }
     });
 };
+
+// export {verifyToken, verifyTokenAndAuthorization,verifyTokenAndAdmin } 
+
+module.exports = {
+    verifyToken, verifyTokenAndAuthorization,verifyTokenAndAdmin
+}
