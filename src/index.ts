@@ -33,11 +33,10 @@ app.use("/api/carts", cartRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/checkout", checkoutRouter);
 
-app.get('/favicon.ico', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'public/index.html'));
-  });
+app.get('/', (req, res) => {
+    res.send("Home");
+});
 
 app.listen(process.env.PORT || 5000, () => {
     console.log('Backend Server is running!');
-})
-
+});
