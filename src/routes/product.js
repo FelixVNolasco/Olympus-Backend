@@ -5,7 +5,7 @@ import { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } from ".
 
 //CREATE PRODUCT
 
-router.post("/", verifyTokenAndAdmin, async (req: any, res: any) => {
+router.post("/", verifyTokenAndAdmin, async (req, res) => {
     const newProduct = new Product(req.body);
     try {
         const savedProduct = await newProduct.save();
@@ -16,7 +16,7 @@ router.post("/", verifyTokenAndAdmin, async (req: any, res: any) => {
 });
 
 //UPDATE PRODUCT
-router.put("/:id", verifyTokenAndAdmin, async (req: any, res: any) => {
+router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
     try {
         const updatedProduct = await Product.findByIdAndUpdate(
             req.params.id,
@@ -33,7 +33,7 @@ router.put("/:id", verifyTokenAndAdmin, async (req: any, res: any) => {
 
 
 //DELETE
-router.delete("/:id", verifyTokenAndAdmin, async (req: any, res: any) => {
+router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
     try {
         await Product.findByIdAndDelete(req.params.id);
         res.status(200).json("Product has been deleted...");
@@ -44,7 +44,7 @@ router.delete("/:id", verifyTokenAndAdmin, async (req: any, res: any) => {
 
 
 //GET PRODUCT
-router.get("/find/:id", async (req: any, res: any) => {
+router.get("/find/:id", async (req, res) => {
     try {
         const product = await Product.findById(req.params.id);
         res.status(200).json(product);
@@ -55,7 +55,7 @@ router.get("/find/:id", async (req: any, res: any) => {
 
 
 //GET ALL PRODUCTS
-router.get("/", async (req: any, res: any) => {
+router.get("/", async (req, res) => {
     const qNew = req.query.new;
     const qCategory = req.query.category;
     try {

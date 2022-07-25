@@ -3,7 +3,7 @@ const router = require("express").Router();
 import { verifyToken, verifyTokenAndAuthorization, verifyTokenAndAdmin } from "../middleware/verifyToken"
 
 //CREATE
-router.post("/", verifyToken, async (req: any, res: any) => {
+router.post("/", verifyToken, async (req, res) => {
     const newOrder = new Order(req.body);
 
     try {
@@ -15,7 +15,7 @@ router.post("/", verifyToken, async (req: any, res: any) => {
 });
 
 //UPDATE
-router.put("/:id", verifyTokenAndAdmin, async (req: any, res: any) => {
+router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
     try {
         const updatedOrder = await Order.findByIdAndUpdate(
             req.params.id,
@@ -31,7 +31,7 @@ router.put("/:id", verifyTokenAndAdmin, async (req: any, res: any) => {
 });
 
 //DELETE
-router.delete("/:id", verifyTokenAndAdmin, async (req: any, res: any) => {
+router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
     try {
         await Order.findByIdAndDelete(req.params.id);
         res.status(200).json("Order has been deleted...");
@@ -41,7 +41,7 @@ router.delete("/:id", verifyTokenAndAdmin, async (req: any, res: any) => {
 });
 
 //GET USER ORDERS
-router.get("/find/:userId", verifyTokenAndAuthorization, async (req: any, res: any) => {
+router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
     try {
         const orders = await Order.find({ userId: req.params.userId });
         res.status(200).json(orders);
@@ -52,7 +52,7 @@ router.get("/find/:userId", verifyTokenAndAuthorization, async (req: any, res: a
 
 // //GET ALL
 
-router.get("/", verifyTokenAndAdmin, async (req: any, res: any) => {
+router.get("/", verifyTokenAndAdmin, async (req, res) => {
     try {
         const orders = await Order.find();
         res.status(200).json(orders);
@@ -62,7 +62,7 @@ router.get("/", verifyTokenAndAdmin, async (req: any, res: any) => {
 });
 
 // GET MONTHLY INCOME
-router.get("/income", verifyTokenAndAdmin, async (req: any, res: any) => {
+router.get("/income", verifyTokenAndAdmin, async (req, res) => {
     const date = new Date();
     const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
     const previousMonth = new Date(new Date().setMonth(lastMonth.getMonth() - 1));
