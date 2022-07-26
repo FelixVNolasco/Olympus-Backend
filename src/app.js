@@ -31,3 +31,9 @@ app.use("/api/products", productsRouter);
 app.use("/api/carts", cartRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/checkout", checkoutRouter);
+
+app.get("/", (req, res) => {
+  res.send("HOME");
+});
+
+module.exports = app;
