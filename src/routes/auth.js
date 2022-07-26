@@ -59,9 +59,4 @@ router.post("/login", async (req, res) => {
   }
 });
 
-
-router.get("/a", async (req, res) => {
-  res.send("HELLO WORLD!")
-});
-
 module.exports = router;
