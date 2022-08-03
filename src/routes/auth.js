@@ -12,6 +12,7 @@ router.post("/signup", async (req, res) => {
       req.body.password,
       process.env.SEC_PASSJS
     ).toString(),
+    urlImage: ""
   });
 
   try {
