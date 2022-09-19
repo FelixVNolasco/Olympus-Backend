@@ -1,7 +1,6 @@
 const User = require("../models/User");
 
 const {
-  verifyToken,
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 } = require("../middleware/verifyToken");
@@ -51,6 +50,32 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
+//GET USER with Credentials
+router.get(
+  "/find/:id:password",
+  verifyTokenAndAuthorization,
+  async (req, res) => {
+    try {
+      const user = await User.findById(req.params.id);
+      const { _doc } = user;
+      const { password } = _doc;
+      
+      const passwordRequest = CryptoJS.AES.encrypt(
+        req.params.password,
+        process.env.SEC_PASSJS
+      ).toString();
+
+      if (password === passwordRequest) {
+        res.status(200).json(_doc);
+      } else {
+        res.status(403);
+      }
+    } catch (err) {
+      res.status(500).json(err);
+    }
+  }
+);
+
 //GET ALL USER
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
   const query = req.query.new;
@@ -65,7 +90,6 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
 });
 
 //GET USER STATS
-
 router.get("/stats", verifyTokenAndAdmin, async (req, res) => {
   const date = new Date();
   const lastYear = new Date(date.setFullYear(date.getFullYear() - 1));
