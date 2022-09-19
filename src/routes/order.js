@@ -18,7 +18,7 @@ router.post("/", verifyToken, async (req, res) => {
 });
 
 //UPDATE
-router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
+router.put("/:id", verifyTokenAndAdmin, async (req, res) => {
   try {
     const updatedOrder = await Order.findByIdAndUpdate(
       req.params.id,
@@ -48,6 +48,16 @@ router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
   try {
     const orders = await Order.find({ userId: req.params.userId });
     res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
+//GET ORDER
+router.get("/find/purchase/:_id", verifyTokenAndAuthorization, async (req, res) => {
+  try {
+    const order = await Order.find({ _id: req.params._id });
+    res.status(200).json(order);
   } catch (err) {
     res.status(500).json(err);
   }
