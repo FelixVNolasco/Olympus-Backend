@@ -16,7 +16,6 @@ router.put("/:id", verifyTokenAndAuthorization, async (req, res) => {
       process.env.SEC_PASSJS
     ).toString();
   }
-
   try {
     const updatedUser = await User.findByIdAndUpdate(
       req.params.id,
