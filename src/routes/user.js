@@ -52,14 +52,14 @@ router.get("/find/:id", verifyTokenAndAdmin, async (req, res) => {
 
 //GET USER with Credentials
 router.get(
-  "/find/:id:password",
+  "/find/?id&password",
   verifyTokenAndAuthorization,
   async (req, res) => {
     try {
       const user = await User.findById(req.params.id);
       const { _doc } = user;
       const { password } = _doc;
-      
+
       const passwordRequest = CryptoJS.AES.encrypt(
         req.params.password,
         process.env.SEC_PASSJS
