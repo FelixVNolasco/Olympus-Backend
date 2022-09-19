@@ -53,16 +53,6 @@ router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
   }
 });
 
-//GET ORDER
-router.get("/find/purchase/:_id", verifyTokenAndAuthorization, async (req, res) => {
-  try {
-    const order = await Order.find({ _id: req.params._id });
-    res.status(200).json(order);
-  } catch (err) {
-    res.status(500).json(err);
-  }
-});
-
 //GET ALL
 router.get("/", verifyTokenAndAdmin, async (req, res) => {
   try {
