@@ -10,6 +10,7 @@ const userRouter = require("./routes/user");
 const cartRouter = require("./routes/cart");
 const orderRouter = require("./routes/order");
 const checkoutRouter = require("./routes/checkout");
+const restorePasswordRouter = require("./routes/restorePassword");
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use("/api/products", productsRouter);
 app.use("/api/carts", cartRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/checkout", checkoutRouter);
+app.use("/api/auth", restorePasswordRouter);
 
 app.get("/", (req, res) => {
   res.send("HOME");
