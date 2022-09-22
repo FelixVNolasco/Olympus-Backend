@@ -28,7 +28,7 @@ const requestPasswordReset = async (email) => {
 
   await sendEmail(
     user.email,
-    "Password Reset Request",
+    "Recuperación de Contraseña - Olympus Store",
     {
       name: user.username,
       link: link,
