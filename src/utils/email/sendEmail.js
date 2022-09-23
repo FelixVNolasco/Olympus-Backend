@@ -14,7 +14,7 @@ const sendEmail = (email, subject, payload, template) => {
       },
     });
 
-    const source = fs.readFileSync(path.join(__dirname, template), "utf8");
+    const source = fs.readFile(path.join(__dirname, template), "utf8");
     const compiledTemplate = handlebars.compile(source);
     new Promise((resolve, reject) => {
       // verify connection configuration
