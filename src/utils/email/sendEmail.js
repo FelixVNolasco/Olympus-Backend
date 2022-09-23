@@ -3,8 +3,8 @@ const handlebars = require("handlebars");
 const fs = require("fs");
 const path = require("path");
 
-const sendEmail = async (email, subject, payload, template) => {
-  try {
+const sendEmail = (email, subject, payload, template) => {
+
     // create reusable transporter object using the default SMTP transport
     const transporter = nodemailer.createTransport({
       service: "Gmail",
@@ -16,7 +16,7 @@ const sendEmail = async (email, subject, payload, template) => {
 
     const source = fs.readFileSync(path.join(__dirname, template), "utf8");
     const compiledTemplate = handlebars.compile(source);
-    await new Promise((resolve, reject) => {
+    new Promise((resolve, reject) => {
       // verify connection configuration
       transporter.verify(function (error, success) {
         if (error) {
@@ -38,7 +38,7 @@ const sendEmail = async (email, subject, payload, template) => {
       };
     };
 
-    await new Promise((resolve, reject) => {
+    new Promise((resolve, reject) => {
       // send mail
       transporter.sendMail(options(), (err, info) => {
         if (err) {
@@ -61,10 +61,6 @@ const sendEmail = async (email, subject, payload, template) => {
     //     });
     //   }
     // });
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
 };
 
 /*
