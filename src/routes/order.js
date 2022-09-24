@@ -5,6 +5,7 @@ const {
   verifyTokenAndAuthorization,
   verifyTokenAndAdmin,
 } = require("../middleware/verifyToken");
+const User = require("../models/User");
 
 //CREATE
 router.post("/", verifyToken, async (req, res) => {
@@ -46,7 +47,15 @@ router.delete("/:id", verifyTokenAndAdmin, async (req, res) => {
 //GET USER ORDERS
 router.get("/find/:userId", verifyTokenAndAuthorization, async (req, res) => {
   try {
+    
+      const user = User.find({ userId: req.params.userId })
+
+      if(!user) {
+        throw new Error("El usuario no existe")
+      }
+    
     const orders = await Order.find({ userId: req.params.userId });
+    console.log(orders)
     res.status(200).json(orders);
   } catch (err) {
     res.status(500).json(err);
