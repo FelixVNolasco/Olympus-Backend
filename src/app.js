@@ -25,9 +25,7 @@ mongoose
     console.log(err);
   });
 
-app.use(cors({
-  origin: ["http://localhost:3000", "https://olympus-store.vercel.app", "https://checkout.stripe.com"]
-}));
+app.use(cors());
 app.use(express.json());
 
 app.use("/api/auth", authRouter);
