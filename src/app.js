@@ -35,7 +35,6 @@ app.use("/api/carts", cartRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/checkout", checkoutRouter);
 app.use("/api/auth", restorePasswordRouter);
-
 app.use("/api/stripe", stripe);
 
 app.get("/", (req, res) => {
