@@ -26,11 +26,9 @@ const OrderSchema = new mongoose.Schema(
         },
       },
     ],
-    subtotal: { type: Number, required: true },
-    total: { type: Number, required: true },
-    shipping: { type: Object, required: true },
-    delivery_status: { type: String, default: "pending" },
-    payment_status: { type: String, required: true },
+    amount: { type: Number, required: true },
+    address: { type: Object, required: true },
+    status: { type: String, default: "pending" },
   },
   { timestamps: true }
 );
