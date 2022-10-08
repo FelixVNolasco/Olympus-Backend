@@ -12,6 +12,8 @@ const orderRouter = require("./routes/order");
 const checkoutRouter = require("./routes/checkout");
 const restorePasswordRouter = require("./routes/restorePassword");
 
+const stripe = require("./routes/stripe");
+
 const app = express();
 
 dotenv.config();
@@ -33,6 +35,8 @@ app.use("/api/carts", cartRouter);
 app.use("/api/orders", orderRouter);
 app.use("/api/checkout", checkoutRouter);
 app.use("/api/auth", restorePasswordRouter);
+
+app.use("/api/stripe", stripe);
 
 app.get("/", (req, res) => {
   res.send("HOME");
