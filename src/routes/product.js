@@ -85,9 +85,6 @@ router.get("/", async (req, res) => {
 router.get("/search", async (req, res) => {
   try {        
     const title = req.query.title;
-    // console.log(title);
-    // console.log(req.query);
-    console.log(title);
     const agg = [      
       {
         $search: {
