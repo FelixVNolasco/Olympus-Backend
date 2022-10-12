@@ -82,36 +82,38 @@ router.get("/", async (req, res) => {
 
 //SEARCH PRODUCT - AUTOCOMPLETE
 
-router.get("/search",  async (req, res) => {
-    try {
-        const { title } = req.params.title;
-        const agg = [
-            {
-                $search: {
-                    autocomplete: {
-                        query: title,
-                        path: "title",
-                        fuzzy: {
-                            maxEdits: 2
-                        }
-                    }
-                },
-                $limit: 5
+router.get("/search", async (req, res) => {
+  try {
+    const { title } = req.query;
+    const agg = [
+      {
+        $search: {
+          autocomplete: {
+            query: title,
+            path: "title",
+            fuzzy: {
+              maxEdits: 2,
             },
-            {
-                project: {
-                    _id: 0,
-                    title: 1,
-                    desc: 1,
-                }
-            }
-        ]
-        const response = Product.aggregate(agg);
-        return res.json(response)
-    } catch (error) {
-        console.log(error);
-        return res.json([]);
-    }
-})
+          },
+        },        
+      },
+      {
+        $limit: 5,
+      },
+      {
+        project: {
+          _id: 0,
+          title: 1,
+          desc: 1,
+        },
+      },
+    ];
+    const response = Product.aggregate(agg);
+    return res.json(response);
+  } catch (error) {
+    console.log(error);
+    return res.json([]);
+  }
+});
 
 module.exports = router;
