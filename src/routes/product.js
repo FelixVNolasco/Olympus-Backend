@@ -109,7 +109,7 @@ router.get("/search", async (req, res) => {
         },
       },
     ];
-    const response = Product.aggregate(agg);
+    const response = await Product.aggregate(agg);
     return res.json(response);
   } catch (error) {
     console.log(error);
