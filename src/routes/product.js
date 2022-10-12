@@ -84,7 +84,7 @@ router.get("/", async (req, res) => {
 
 router.get("/search", async (req, res) => {
   try {
-    const title  = req.params.title;
+    const { title } = req.query;
     const agg = [
       {
         $search: {
@@ -95,7 +95,7 @@ router.get("/search", async (req, res) => {
               maxEdits: 2,
             },
           },
-        },        
+        },
       },
       {
         $limit: 5,
