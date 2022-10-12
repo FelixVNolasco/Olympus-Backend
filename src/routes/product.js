@@ -93,6 +93,8 @@ router.get("/search", async (req, res) => {
             path: "title",
             fuzzy: {
               maxEdits: 2,
+              prefixLength: 1,
+              maxExpansions: 256
             },
           },
         },
@@ -104,8 +106,6 @@ router.get("/search", async (req, res) => {
         $project: {
           _id: 0,
           title: 1,
-          desc: 1,
-          price: 1,
         },
       },
     ];
