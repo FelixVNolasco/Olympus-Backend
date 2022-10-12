@@ -83,9 +83,12 @@ router.get("/", async (req, res) => {
 //SEARCH PRODUCT - AUTOCOMPLETE
 
 router.get("/search", async (req, res) => {
-  try {
-    const { title } = req.query;
-    const agg = [
+  try {        
+    const title = req.query.title;
+    // console.log(title);
+    // console.log(req.query);
+    console.log(title);
+    const agg = [      
       {
         $search: {
           autocomplete: {
@@ -93,8 +96,6 @@ router.get("/search", async (req, res) => {
             path: "title",
             fuzzy: {
               maxEdits: 2,
-              prefixLength: 1,
-              maxExpansions: 256
             },
           },
         },
