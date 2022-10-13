@@ -81,13 +81,13 @@ router.get("/", async (req, res) => {
 });
 
 //SEARCH PRODUCT - AUTOCOMPLETE
-
 router.get("/search", async (req, res) => {
   try {        
     const title = req.query.title;
     const agg = [      
       {
         $search: {
+          index: "productsIndex",
           autocomplete: {
             query: title,
             path: "title",
