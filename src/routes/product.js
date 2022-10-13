@@ -102,7 +102,7 @@ router.get("/search", async (req, res) => {
       },
       {
         $project: {
-          _id: 0,
+          _id: 1,
           title: 1,
           desc: 1,
           price: 1,
