@@ -82,9 +82,9 @@ router.get("/", async (req, res) => {
 
 //SEARCH PRODUCT - AUTOCOMPLETE
 router.get("/search", async (req, res) => {
-  try {        
+  try {
     const title = req.query.title;
-    const agg = [      
+    const agg = [
       {
         $search: {
           index: "productsIndex",
@@ -106,7 +106,8 @@ router.get("/search", async (req, res) => {
           title: 1,
           desc: 1,
           price: 1,
-          img: 1
+          img: 1,
+          inStock: 1,
         },
       },
     ];
