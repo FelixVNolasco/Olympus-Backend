@@ -119,4 +119,48 @@ router.get("/search", async (req, res) => {
   }
 });
 
+router.get("/search/category", async (req, res) => {
+  try {
+    const title = req.query.title;
+    const category = req.query.category;
+    const agg = [
+      {
+        $search: {
+          index: "productsIndex",
+          autocomplete: {
+            query: title,
+            path: "title",
+            fuzzy: {
+              maxEdits: 2,
+            },
+          },
+        },
+      },
+      {
+        $limit: 5,
+      },
+      {
+        $match: {
+          categories: category,
+        },
+      },
+      {
+        $project: {
+          _id: 1,
+          title: 1,
+          desc: 1,
+          price: 1,
+          img: 1,
+          inStock: 1,
+        },
+      },
+    ];
+    const response = await Product.aggregate(agg);
+    return res.json(response);
+  } catch (error) {
+    console.log(error);
+    return res.json([]);
+  }
+});
+
 module.exports = router;
