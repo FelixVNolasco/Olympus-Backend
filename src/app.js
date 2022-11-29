@@ -11,8 +11,9 @@ const cartRouter = require("./routes/cart");
 const orderRouter = require("./routes/order");
 const checkoutRouter = require("./routes/checkout");
 const restorePasswordRouter = require("./routes/restorePassword");
-
 const stripe = require("./routes/stripe");
+
+const categoryRouter = require("./routes/categories");
 
 const app = express();
 
@@ -36,6 +37,7 @@ app.use("/api/orders", orderRouter);
 app.use("/api/checkout", checkoutRouter);
 app.use("/api/auth", restorePasswordRouter);
 app.use("/api/stripe", stripe);
+app.use("/api/categories", categoryRouter);
 
 app.get("/", (req, res) => {
   res.send("HOME");
