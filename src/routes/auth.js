@@ -12,37 +12,39 @@ router.post("/signup", async (req, res) => {
       req.body.password,
       process.env.SEC_PASSJS
     ).toString(),
-    urlImage: ""
+    urlImage: "",
   });
 
   try {
     const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
+    if (savedUser) {
+      return res.status(201).json(savedUser);
+    }
   } catch (err) {
-    res.status(500).json(err);
+    return res.status(401).json(err);
   }
 });
 
 //login
 router.post("/login", async (req, res) => {
-  try {
-    const user = await User.findOne({
-      username: req.body.username,
-    });
+  const user = await User.findOne({
+    username: req.body.username,
+  });
 
-    !user && res.status(401).json("User or password is wrong");
-
+  if (!user) {
+    return res.status(401).json("User or password is wrong");
+  } else {
     const hashedPassword = CryptoJS.AES.decrypt(
       user.password,
       process.env.SEC_PASSJS
     );
 
     const originalPassword = hashedPassword.toString(CryptoJS.enc.Utf8);
-
     const inputPassword = req.body.password;
 
-    originalPassword != inputPassword &&
-      res.status(401).json("User or password is wrong");
+    if (originalPassword != inputPassword) {
+      return res.status(401).json("User or password is wrong");
+    }
 
     const accessToken = jwt.sign(
       {
@@ -54,9 +56,7 @@ router.post("/login", async (req, res) => {
     );
 
     const { password, ...others } = user._doc;
-    res.status(200).json({ ...others, accessToken });
-  } catch (err) {
-    res.status(500).json(err);
+    return res.status(200).json({ ...others, accessToken });
   }
 });
 
