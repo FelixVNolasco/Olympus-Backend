@@ -58,7 +58,6 @@ router.get("/find/:id", async (req, res) => {
 
 //GET ALL PRODUCTS
 router.get("/", async (req, res) => {
-
   const qNew = req.query.new;
   const qCategory = req.query.category;
   const qAsc = req.query.asc;
@@ -125,10 +124,14 @@ router.get("/search", async (req, res) => {
       },
     ];
     const response = await Product.aggregate(agg);
-    return res.json(response);
+    if (response.length > 0) {
+      return res.status(200).json(response);
+    } else {
+      return res.json("No se ha encontrado ningun producto con este criterio");
+    }
   } catch (error) {
     console.log(error);
-    return res.json([]);
+    return res.status(500).json(error);
   }
 });
 
