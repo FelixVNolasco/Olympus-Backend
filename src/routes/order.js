@@ -82,6 +82,17 @@ router.get("/", verifyTokenAndAdmin, async (req, res) => {
   }
 });
 
+
+//GET LATEST USERS ORDERS
+router.get("/latest", verifyTokenAndAdmin, async (req, res) => {  
+  try {
+    const orders = await Order.find().sort({ createdAt : -1}).limit(6);
+    res.status(200).json(orders);
+  } catch (err) {
+    res.status(500).json(err);
+  }
+});
+
 // GET MONTHLY INCOME
 router.get("/income", verifyTokenAndAdmin, async (req, res) => {
   const date = new Date();
