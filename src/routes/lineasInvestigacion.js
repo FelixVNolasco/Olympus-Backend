@@ -18,7 +18,7 @@ router.post("/",  async (req, res) => {
     res.status(500).json(err);
   }
 });
-
+ 
 //UPDATE Investigacion
 router.put("/:id",  async (req, res) => {
   try {
